@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 class LogInPage:
-    URL = 'https://www.linkedin.com'
+    URL = 'https://www.linkedin.com/home/'
     ACCEPT_COOKIES_BUTTON = (By.XPATH, '//*[@class="artdeco-global-alert-action__wrapper"]//button[@action-type=\'ACCEPT\']')
     USERNAME_TEXTBOX = (By.ID, "session_key")
     PASSWORD_TEXTBOX = (By.ID, "session_password")

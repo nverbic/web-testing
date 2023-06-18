@@ -1,13 +1,15 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 
 class HomePage:
-    FEED_IDENTITY_MODULE = (By.XPATH, '//*[@class="feed-identity-module artdeco-card overflow-hidden mb2"]')
+    WELCOME_PANEL = (By.XPATH, '//div[contains(@class, "feed-identity-module__actor-meta")]')
 
     def __init__(self, browser):
         self.browser = browser
 
-    def feed_identity_module_text(self):
-        # personal_info = ""
-        personal_info = self.browser.find_element(*self.FEED_IDENTITY_MODULE)
+    def get_home_page_welcome_panel_text(self):
+        personal_info = WebDriverWait(self.browser, 10).until(expected_conditions.presence_of_element_located(self.WELCOME_PANEL))
+        #print(personal_info.text)
         return len(personal_info.text)

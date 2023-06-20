@@ -6,11 +6,11 @@ from selenium.common.exceptions import TimeoutException
 class LogInPage:
     URL = 'https://www.linkedin.com/home/'
     ACCEPT_COOKIES_BUTTON = (By.XPATH, '//*[@class="artdeco-global-alert-action__wrapper"]//button[@action-type=\'ACCEPT\']')
-    USERNAME_TEXTBOX = (By.ID, "session_key")
-    PASSWORD_TEXTBOX = (By.ID, "session_password")
+    USERNAME_TEXTBOX = ((By.ID, "session_key" or "username"))
+    PASSWORD_TEXTBOX = (By.ID, ("session_password" or "password"))
     SIGNIN_BUTTON = (By.XPATH, "//button[@data-id='sign-in-form__submit-btn']")
-    username = ""
-    password = ""
+    # username = ""
+    # password = ""
 
     def __init__(self, browser, username, password):
         self.browser = browser
@@ -38,9 +38,6 @@ class LogInPage:
         accept_button.click()
 
     def login(self):
-        username = ""
-        password = ""
-
         print("Check for login input fields")
         username = self.browser.find_element(*self.USERNAME_TEXTBOX)
         password = self.browser.find_element(*self.PASSWORD_TEXTBOX)

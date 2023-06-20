@@ -7,9 +7,7 @@ from pages.home import HomePage
 def test_sign_in(browser, username, password):
     # Accept cookies and sign in
     login_page = LogInPage(browser, username, password)
-    login_page.load()
-    login_page.accept_cookies()
-    login_page.login()
+    login_page.load().accept_cookies().login()
 
     # Verify login is success by locating identity panel on the page
     home_page = HomePage(browser)

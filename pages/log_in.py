@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException
+from pages.home import HomePage
 
 class LogInPage:
     URL = 'https://www.linkedin.com/home/'
@@ -47,5 +48,6 @@ class LogInPage:
         print("Sign in")
         sign_in_button = self.browser.find_element(*self.SIGNIN_BUTTON)
         sign_in_button.click()
-        return self
+        return HomePage(self.browser)
+
 

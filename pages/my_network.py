@@ -3,15 +3,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 
 
+# Yana: Is it better to use contains instead of full link?
+# Yana: The fastest way to search for an element (specify xpath as accurate as possible)?
 class MyNetwork:
     MANAGE_MY_NETWORK = (By.CLASS_NAME, "mn-community-summary__section")
-
-    # Yana: Is it better to use contains instead of full link?
-    CONNECTIONS_LINK = (By.XPATH, '//a[@href = "/mynetwork/invite-connect/connections/"]')
-
-    # Yana: The fastest way to search for an element (specify xpath as accurate as possible)?
     EMPTY_CONNECTIONS_POPUP = (By.CLASS_NAME, "t-light")
-    #CONNECTIONS_EMPTY_DIV = (By.XPATH, "//main//*//h2[contains(text(), 'You don’t have any connections yet.')]")
+    CONNECTIONS_LINK = (By.CLASS_NAME, "mn-community-summary__link")
 
     def __init__(self, browser):
         self.browser = browser
@@ -23,10 +20,25 @@ class MyNetwork:
         return self
 
     def click_connections_link(self):
+        connections_elem = self.get_element_from_manage_my_network_list("Connections")
         print("Connections link click")
-        connections_link = WebDriverWait(self.browser, 10).until(expected_conditions.element_to_be_clickable(self.CONNECTIONS_LINK))
-        connections_link.click()
+        connections_elem.click()
         return self
+
+    def get_element_from_manage_my_network_list(self, element_text):
+        manage_my_network_list = self.get_manage_my_network_list()
+        for element in manage_my_network_list:
+            if element.text == element_text:
+                print(f"Get {element_text} link element from \"Manage my network\" panel.")
+                return element
+            else:
+                return None
+
+    def get_manage_my_network_list(self):
+        print("Get list of elements under \"Manage my network\" panel.")
+        manage_my_network_list = WebDriverWait(self.browser, 10).until(
+            expected_conditions.visibility_of_all_elements_located(self.CONNECTIONS_LINK))
+        return manage_my_network_list
 
     def get_empty_connections_popup_text(self):
         connections_info = self.browser.find_element(*self.EMPTY_CONNECTIONS_POPUP)

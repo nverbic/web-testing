@@ -13,11 +13,11 @@ def test_my_network_connections_is_empty(browser, username, password):
         .login()
 
     # Click on My Network link and then on the Connections link
-    my_network_page = home_page.click_my_network_link().\
+    connections_page = home_page.click_my_network_link().\
         check_manage_my_network_panel_is_visible().\
         click_connections_link()
 
     # Verify Connections list is empty
-    text = my_network_page.get_empty_connections_popup_text()
+    text = connections_page.get_empty_connections_popup_text()
     assert text == "You don’t have any connections yet."
     browser.close()

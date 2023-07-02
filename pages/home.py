@@ -13,7 +13,6 @@ class HomePage:
 
     def get_home_page_welcome_panel_text(self):
         personal_info = WebDriverWait(self.browser, 10).until(expected_conditions.presence_of_element_located(self.WELCOME_PANEL))
-        #print(personal_info.text)
         return len(personal_info.text)
 
     def click_my_network_link(self):

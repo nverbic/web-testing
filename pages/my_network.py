@@ -1,13 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-
+from pages.connections import Connections
 
 # Yana: Is it better to use contains instead of full link?
 # Yana: The fastest way to search for an element (specify xpath as accurate as possible)?
 class MyNetwork:
     MANAGE_MY_NETWORK = (By.CLASS_NAME, "mn-community-summary__section")
-    EMPTY_CONNECTIONS_POPUP = (By.CLASS_NAME, "t-light")
     CONNECTIONS_LINK = (By.CLASS_NAME, "mn-community-summary__link")
 
     def __init__(self, browser):
@@ -23,7 +22,7 @@ class MyNetwork:
         connections_elem = self.get_element_from_manage_my_network_list("Connections")
         print("Connections link click")
         connections_elem.click()
-        return self
+        return Connections(self.browser)
 
     def get_element_from_manage_my_network_list(self, element_text):
         manage_my_network_list = self.get_manage_my_network_list()
@@ -40,6 +39,10 @@ class MyNetwork:
             expected_conditions.visibility_of_all_elements_located(self.CONNECTIONS_LINK))
         return manage_my_network_list
 
-    def get_empty_connections_popup_text(self):
-        connections_info = self.browser.find_element(*self.EMPTY_CONNECTIONS_POPUP)
-        return connections_info.text
+# Yana: Define class in the same file or create a separate file
+# Yana: Define class in the same file or create a separate file
+# Yana: Is it subclass of MyNetwork or not
+# class ManageMyNetworkPanel(MyNetwork):
+    # pass
+
+

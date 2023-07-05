@@ -1,17 +1,8 @@
 import pytest
-from pages.log_in import LogInPage
 
 
-# Yana: Test Internet connection?
-
-
-def test_my_network_connections_is_empty(browser, username, password):
-    # Todo: Accept cookies and sign in before every test
-    login_page = LogInPage(browser, username, password)
-    home_page = login_page.load()\
-        .accept_cookies()\
-        .login()
-
+# home_page: Log in and return home_page before every test
+def test_my_network_connections_is_empty(browser, username, password, home_page):
     # Click on My Network link and then on the Connections link
     connections_page = home_page.click_my_network_link().\
         check_manage_my_network_panel_is_visible().\

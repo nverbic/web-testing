@@ -5,9 +5,10 @@ from pages.connections import Connections
 
 # Yana: Is it better to use contains instead of full link?
 # Yana: The fastest way to search for an element (specify xpath as accurate as possible)?
+
+
 class MyNetwork:
     MANAGE_MY_NETWORK = (By.CLASS_NAME, "mn-community-summary__section")
-    CONNECTIONS_LINK = (By.CLASS_NAME, "mn-community-summary__link")
 
     def __init__(self, browser):
         self.browser = browser
@@ -16,7 +17,11 @@ class MyNetwork:
         print("Check \"Manage my network\" panel is visible")
         manage_network_panel = WebDriverWait(self.browser, 10).until(
             expected_conditions.visibility_of_element_located(self.MANAGE_MY_NETWORK))
-        return self
+        return ManageMyNetworkPanel(self.browser)
+
+
+class ManageMyNetworkPanel(MyNetwork):
+    CONNECTIONS_LINK = (By.CLASS_NAME, "mn-community-summary__link")
 
     def click_connections_link(self):
         connections_elem = self.get_element_from_manage_my_network_list("Connections")
@@ -38,11 +43,3 @@ class MyNetwork:
         manage_my_network_list = WebDriverWait(self.browser, 10).until(
             expected_conditions.visibility_of_all_elements_located(self.CONNECTIONS_LINK))
         return manage_my_network_list
-
-# Yana: Define class in the same file or create a separate file
-# Yana: Define class in the same file or create a separate file
-# Yana: Is it subclass of MyNetwork or not
-# class ManageMyNetworkPanel(MyNetwork):
-    # pass
-
-

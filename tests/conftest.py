@@ -1,7 +1,8 @@
 import pytest
 import json
-
 from selenium.webdriver import Chrome, Firefox, Edge
+from pages.log_in import LogInPage
+from pages.home import HomePage
 
 CONFIG_PATH = 'config.json'
 DEFAULT_WAIT_TIME = 10
@@ -53,3 +54,20 @@ def username(config):
 @pytest.fixture
 def password(config):
     return config['password']
+
+
+@pytest.fixture
+def home_page(browser):
+    return HomePage(browser)
+
+# Accept cookies and sign in before every test
+# Return: home_page
+@pytest.fixture(autouse=True)
+def log_in_and_return_home_page(browser, username, password):
+    login_page = LogInPage(browser, username, password)
+    home_page = login_page.load(). \
+        accept_cookies(). \
+        login()
+
+
+

@@ -8,10 +8,10 @@ from pages.home import HomePage
 class LogInPage:
     URL = 'https://www.linkedin.com/home/'
     ACCEPT_COOKIES_BUTTON = (By.XPATH, '//*[@class="artdeco-global-alert-action__wrapper"]//button[@action-type=\'ACCEPT\']')
-    USERNAME_TEXTBOX_OPTION_1= (By.ID, "session_key")
+    USERNAME_TEXTBOX_OPTION_1 = (By.ID, "session_key")
     PASSWORD_TEXTBOX_OPTION_1 = (By.ID, "session_password")
     # TODO: If OPTION_1 ids above are not available, check with the OPTION_2 ids below
-    # USERNAME_TEXTBOX_OPTION_2= (By.ID, "username")
+    # USERNAME_TEXTBOX_OPTION_2 = (By.ID, "username")
     # PASSWORD_TEXTBOX_OPTION_2 = (By.ID, "password")
 
     SIGNIN_BUTTON = (By.XPATH, "//button[@data-id='sign-in-form__submit-btn']")
@@ -32,12 +32,12 @@ class LogInPage:
     def accept_cookies(self):
         print("Accept cookies")
         try:
-            accept_button = WebDriverWait(self.browser, 10).until(expected_conditions.element_to_be_clickable(self.ACCEPT_COOKIES_BUTTON))
+            accept_button = WebDriverWait(self.browser, 15).until(expected_conditions.element_to_be_clickable(self.ACCEPT_COOKIES_BUTTON))
         except (TimeoutException, StaleElementReferenceException) as e:
             print(f"An exception occurred: {str(e)}")
             self.browser.refresh()
             print("Refresh page")
-            accept_button = WebDriverWait(self.browser, 10).until(expected_conditions.element_to_be_clickable(self.ACCEPT_COOKIES_BUTTON))
+            accept_button = WebDriverWait(self.browser, 15).until(expected_conditions.element_to_be_clickable(self.ACCEPT_COOKIES_BUTTON))
             print("Accept cookies after refresh")
         # print(accept_button.get_attribute('action-type'))
         accept_button.click()
@@ -46,16 +46,16 @@ class LogInPage:
     def login(self):
         print("Check for login input fields")
         try:
-            username = WebDriverWait(self.browser, 10).until(
+            username = WebDriverWait(self.browser, 15).until(
                 expected_conditions.element_to_be_clickable(self.USERNAME_TEXTBOX_OPTION_1))
-            password = WebDriverWait(self.browser, 10).until(
+            password = WebDriverWait(self.browser, 15).until(
                 expected_conditions.element_to_be_clickable(self.PASSWORD_TEXTBOX_OPTION_1))
         except TimeoutException:
             link_to_sign_in_page = self.browser.find_element(*self.LINK_TO_SIGNIN_PAGE)
             link_to_sign_in_page.click()
-            username = WebDriverWait(self.browser, 10).until(
+            username = WebDriverWait(self.browser, 15).until(
                 expected_conditions.element_to_be_clickable(self.USERNAME_TEXTBOX_OPTION_1))
-            password = WebDriverWait(self.browser, 10).until(
+            password = WebDriverWait(self.browser, 15).until(
                 expected_conditions.element_to_be_clickable(self.PASSWORD_TEXTBOX_OPTION_1))
         print("Enter credentials")
         username.clear()

@@ -20,7 +20,7 @@ class MyNetwork:
 
     def check_manage_my_network_panel_is_visible(self):
         print("Check \"Manage my network\" panel is visible")
-        WebDriverWait(self.browser, 10).until(
+        WebDriverWait(self.browser, 15).until(
             expected_conditions.visibility_of_element_located(self.MANAGE_MY_NETWORK))
         return ManageMyNetworkPanel(self.browser)
 

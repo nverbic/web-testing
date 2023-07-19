@@ -9,10 +9,12 @@ from pages.connections import Connections
 
 class MyNetwork:
     MANAGE_MY_NETWORK = (By.CLASS_NAME, "mn-community-summary__section")
-    SUGGESTED_PEOPLE_GROUP = (By.XPATH, "//main/ul/li[1]/ul")
-    SUGGESTED_PEOPLE_LIST = (By.TAG_NAME, "li")
-    SUGGESTED_PEOPLE_ITEM_CLOSE_BUTTON = (By.XPATH, './/button[contains(@class,"artdeco-card__dismiss")]')
-    SUGGESTED_PEOPLE_ITEM_LINK = (By.XPATH, './/a[contains(@class,"discover-entity-type-card__link")]')
+    # TYPES_OF_SUGGESTED_CONNECTIONS = (By.XPATH, "//main/ul")
+    # Todo: Change  hard coded first element with variable selection
+    SUGGESTED_CONNECTIONS_OF_SELECTED_TYPE = (By.XPATH, "//main/ul/li[1]/ul")
+    SUGGESTED_CONNECTIONS_LIST = (By.TAG_NAME, "li")
+    SUGGESTED_CONNECTION_CLOSE_BUTTON = (By.XPATH, './/button[contains(@class,"artdeco-card__dismiss")]')
+    SUGGESTED_CONNECTION_LINK = (By.XPATH, './/a[contains(@class,"discover-entity-type-card__link")]')
 
     def __init__(self, browser):
         self.browser = browser
@@ -24,32 +26,43 @@ class MyNetwork:
             expected_conditions.visibility_of_element_located(self.MANAGE_MY_NETWORK))
         return ManageMyNetworkPanel(self.browser)
 
-    def find_href_in_suggested_people_list(self, href=None):
+    def find_href_in_suggested_connections_list(self, href=None):
         if href is None:
             href = self.deleted_suggested_connection_href
-        suggested_people_list = self.get_suggested_people_list()
-        for li in suggested_people_list:
-            if li.get_attribute('href') == href:
-                return li
+        suggested_list = self.get_suggested_connections_list()
+        for connection_url in suggested_list:
+            if connection_url.get_attribute('href') == href:
+                return connection_url
         return None
 
-    def close_suggested_people_list_item(self, item_number=0):
+    def close_suggested_connection(self, item_number=0):
         self.deleted_suggested_connection_href = ""
-        suggested_people_list = self.get_suggested_people_list()
-        print("Get person's href")
-        self.deleted_suggested_connection_href = suggested_people_list[item_number].\
-            find_element(*self.SUGGESTED_PEOPLE_ITEM_LINK).get_attribute('href')
-        print("Close the suggested person")
-        suggested_people_list[item_number].find_element(*self.SUGGESTED_PEOPLE_ITEM_CLOSE_BUTTON).click()
+        suggested_list = self.get_suggested_connections_list()
+        print("Get connection's href")
+        self.deleted_suggested_connection_href = suggested_list[item_number].\
+            find_element(*self.SUGGESTED_CONNECTION_LINK).get_attribute('href')
+        print("Close the connection")
+        suggested_list[item_number].find_element(*self.SUGGESTED_CONNECTION_CLOSE_BUTTON).click()
         return self
 
-    def get_suggested_people_list(self):
-        print("Get suggested people ul element")
-        suggested_people_ul_elem = WebDriverWait(self.browser, 10). \
-            until(expected_conditions.visibility_of_element_located(self.SUGGESTED_PEOPLE_GROUP))
-        print("Get suggested people list of li elements")
-        suggested_people_list = suggested_people_ul_elem.find_elements(*self.SUGGESTED_PEOPLE_LIST)
-        return suggested_people_list
+    # TODO: Change to work with all listed types of connections (now it works with the first displayed group
+    #  of suggested connections)
+    def get_suggested_connections_list(self):
+        print("Get suggested connections' ul element")
+        suggested_connections = WebDriverWait(self.browser, 10). \
+            until(expected_conditions.visibility_of_element_located(self.SUGGESTED_CONNECTIONS_OF_SELECTED_TYPE))
+        print("Get suggested connections' list of li elements")
+        suggested_connections_list = suggested_connections.find_elements(*self.SUGGESTED_CONNECTIONS_LIST)
+        return suggested_connections_list
+
+    # TODO: Get list of all different types of possible connections (people, pages, follow etc.)
+    # def get_suggested_connections_types(self):
+    #     print("Get all suggested connections types.")
+    #     suggested_types = WebDriverWait(self.browser, 10). \
+    #         until(expected_conditions.visibility_of_element_located(self.TYPES_OF_SUGGESTED_CONNECTIONS))
+    #     print("Get list of lists")
+    #     all_suggested_types_list = suggested_types.find_elements(*self.SUGGESTED_PEOPLE_LIST)
+    #     return all_suggested_types_list
 
 
 class ManageMyNetworkPanel(MyNetwork):

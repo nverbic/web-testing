@@ -1,6 +1,16 @@
 {
-  "browser": "chrome",
-  "wait_time": 10,
-  "username": "",
-  "password": ""
+  "drivers_config": {
+    "browser": "chrome",
+    "wait_time": 10
+   },
+  "user_1": {
+    "username": "",
+    "password": ""
+  },
+  "user_2": {
+    "username": "",
+    "password": ""
+  }
 }
+
+

@@ -69,7 +69,7 @@ class ManageMyNetworkPanel(MyNetwork):
     CONNECTIONS_LINK = (By.CLASS_NAME, "mn-community-summary__link")
 
     def click_connections_link(self):
-        connections_elem = self.get_element_from_manage_my_network_list("Connections")
+        connections_elem = self.get_element_from_manage_my_network_list("Connection")
         print("Connections link click")
         connections_elem.click()
         return Connections(self.browser)
@@ -77,7 +77,9 @@ class ManageMyNetworkPanel(MyNetwork):
     def get_element_from_manage_my_network_list(self, element_text):
         manage_my_network_list = self.get_manage_my_network_list()
         for element in manage_my_network_list:
-            if element.text == element_text:
+            # Element text can change depending on the number of connections.
+            # Check if the desired text is contained in the text of the element rather then comparing strings with the equality op.
+            if element.text.find(element_text) != -1:
                 print(f"Get {element_text} link element from \"Manage my network\" panel.")
                 return element
             else:

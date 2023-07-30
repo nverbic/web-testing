@@ -72,13 +72,32 @@ def password(config):
 
 
 @pytest.fixture
-def username_second(config):
+def first_name(config):
+    return config['user_1']['first_name']
+
+@pytest.fixture
+def last_name(config):
+    return config['user_1']['last_name']
+
+
+@pytest.fixture
+def username_user_2(config):
     return config['user_2']['username']
 
 
 @pytest.fixture
-def password_second(config):
+def password_user_2(config):
     return config['user_2']['password']
+
+
+@pytest.fixture
+def first_name_user_2(config):
+    return config['user_2']['first_name']
+
+
+@pytest.fixture
+def last_name_user_2(config):
+    return config['user_2']['last_name']
 
 
 @pytest.fixture
@@ -94,12 +113,3 @@ def log_in_and_return_home_page(browser, username, password):
     home_page = login_page.load(). \
         accept_cookies(). \
         login()
-
-# TODO: Use later for second user
-#@pytest.fixture
-# def log_in_and_return_home_page_second_user(browser_second, username_second, password_second):
-#     login_page = LogInPage(browser_second, username_second, password_second)
-#     home_page_second_user = login_page.load(). \
-#         accept_cookies(). \
-#         login()
-#     return home_page_second_user

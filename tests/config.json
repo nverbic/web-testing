@@ -5,11 +5,15 @@
    },
   "user_1": {
     "username": "",
-    "password": ""
+    "password": "",
+    "first_name": "",
+    "last_name": ""
   },
   "user_2": {
     "username": "",
-    "password": ""
+    "password": "",
+    "first_name": "",
+    "last_name": ""
   }
 }
 

@@ -11,9 +11,8 @@ class Messaging:
         self.browser = browser
 
     # Check for the specific message in the list of all messages
-    def check_message_is_received(self, firs_name, last_name, message_text):
-        message_data = [firs_name, last_name, message_text]
-
+    def check_message_is_received(self, first_name, last_name, message_text):
+        message_data = [first_name, last_name, message_text]
         messages_list = self.get_messages_list()
         for message in messages_list:
             if all([data in message.text for data in message_data]):

@@ -11,7 +11,8 @@ SUPPORTED_BROWSERS = ['chrome', 'firefox', 'edge']
 
 @pytest.fixture(scope='session')
 def config():
-    with open(CONFIG_PATH) as config_file:
+    with open(CONFIG_PATH, encoding="utf-8") as config_file:
+        # data = json.load(config_file).encode("latin_1").decode("utf_8")
         data = json.load(config_file)
     return data
 
@@ -75,9 +76,15 @@ def password(config):
 def first_name(config):
     return config['user_1']['first_name']
 
+
 @pytest.fixture
 def last_name(config):
     return config['user_1']['last_name']
+
+
+@pytest.fixture
+def user_url(config):
+    return config['user_1']['url']
 
 
 @pytest.fixture
@@ -98,6 +105,11 @@ def first_name_user_2(config):
 @pytest.fixture
 def last_name_user_2(config):
     return config['user_2']['last_name']
+
+
+@pytest.fixture
+def user_2_url(config):
+    return config['user_2']['url']
 
 
 @pytest.fixture

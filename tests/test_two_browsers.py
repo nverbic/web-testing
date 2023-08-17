@@ -4,8 +4,17 @@ from datetime import datetime
 
 
 # home_page: Log in and return home_page before every test
-def test_send_message_to_first_connection_from_connections_panel(home_page, browser, first_name, last_name,
-                                                                 browser_second, username_user_2, password_user_2):
+# Pytest parameter None is to run test for the first connection on the list
+# Pytest parameter 'user_2_url' is to run test for the specified connection
+@pytest.mark.parametrize('connection_url',
+                         [pytest.param(None), 'user_2_url'])
+def test_send_message_to_connection_from_connections_panel(home_page, browser, first_name, last_name, browser_second,
+                                                           username_user_2, password_user_2, connection_url, request):
+    if connection_url is None:
+        connection_url = None
+    else:
+        connection_url = request.getfixturevalue(connection_url)
+
     local_time = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
     message_text = f'Hi! Message sent at {local_time}.'
 
@@ -13,7 +22,7 @@ def test_send_message_to_first_connection_from_connections_panel(home_page, brow
     home_page.click_my_network_link(). \
         check_manage_my_network_panel_is_visible(). \
         click_connections_link().\
-        send_message_to_connection(message_text)
+        send_message_to_connection(message_text, connection_url)
     browser.close()
 
     login_second_page = LogInPage(browser_second, username_user_2, password_user_2)
@@ -26,5 +35,3 @@ def test_send_message_to_first_connection_from_connections_panel(home_page, brow
 
     assert result is True
     browser_second.close()
-
-

@@ -7,13 +7,15 @@
     "username": "",
     "password": "",
     "first_name": "",
-    "last_name": ""
+    "last_name": "",
+    "url": ""
   },
   "user_2": {
     "username": "",
     "password": "",
     "first_name": "",
-    "last_name": ""
+    "last_name": "",
+    "url": ""
   }
 }
 

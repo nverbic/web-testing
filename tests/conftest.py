@@ -86,6 +86,7 @@ def last_name(config):
 def user_url(config):
     return config['user_1']['url']
 
+# TODO: Create the schema with using the dot to access the user details (GPT)
 
 @pytest.fixture
 def username_user_2(config):

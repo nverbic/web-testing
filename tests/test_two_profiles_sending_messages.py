@@ -23,13 +23,14 @@ def test_send_message_to_connection_from_connections_panel(home_page, browser, f
         accept_cookies(). \
         login()
 
-    # Yana: Move to conftest?
+    # Yana: Move to conftest.py?
     width = browser.get_window_size().get("width")
     height = browser.get_window_size().get("height")
     browser.set_window_size(width/2, height)
     browser_second.set_window_size(width/2, height)
-    browser.set_window_position(0,0)
     browser_second.set_window_position(width/2, 0)
+    browser.set_window_position(0, 0)
+
 
     # Click on My Network link and then on the Connections link and send the message to the first connection
     home_page.click_my_network_link(). \
@@ -42,7 +43,8 @@ def test_send_message_to_connection_from_connections_panel(home_page, browser, f
         check_last_message_is_received(first_name, last_name, message_text)
 
     # TODO: Test and send message about the error
-    assert result is True
+    assert result is True, "LinkedIn user: " + username_user_2 + " has not received the message."
+    print("LinkedIn user: " + username_user_2 + " has received the message.")
 
     browser.close()
     browser_second.close()

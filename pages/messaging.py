@@ -35,9 +35,13 @@ class Messaging:
         # on the contact in the Messaging list)
         if all([data in last_received_message.text for data in message_contact]):
             print(f"Message received: \n{last_received_message.text} ")
-            found_last_message_in_the_conversation = WebDriverWait(self.browser, 10). \
-                until(expected_conditions.text_to_be_present_in_element(self.NEW_CONVERSATION_THREAD_LAST_MESSAGE, message_text))
-            return found_last_message_in_the_conversation
+            try:
+                found_last_message_in_the_conversation = WebDriverWait(self.browser, 10). \
+                    until(expected_conditions.text_to_be_present_in_element(self.NEW_CONVERSATION_THREAD_LAST_MESSAGE, message_text))
+                return found_last_message_in_the_conversation
+            except Exception as e:
+                print(e)
+                return False
         return False
 
     # Get a list of all messages

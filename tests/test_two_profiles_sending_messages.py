@@ -23,6 +23,14 @@ def test_send_message_to_connection_from_connections_panel(home_page, browser, f
         accept_cookies(). \
         login()
 
+    # Yana: Move to conftest?
+    width = browser.get_window_size().get("width")
+    height = browser.get_window_size().get("height")
+    browser.set_window_size(width/2, height)
+    browser_second.set_window_size(width/2, height)
+    browser.set_window_position(0,0)
+    browser_second.set_window_position(width/2, 0)
+
     # Click on My Network link and then on the Connections link and send the message to the first connection
     home_page.click_my_network_link(). \
         check_manage_my_network_panel_is_visible(). \

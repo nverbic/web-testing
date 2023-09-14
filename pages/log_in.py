@@ -3,9 +3,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from pages.home import HomePage
+from pages.page import Page
 
 
-class LogInPage:
+class LogInPage(Page):
     URL = 'https://www.linkedin.com/home/'
     ACCEPT_COOKIES_BUTTON = (By.XPATH, '//*[@class="artdeco-global-alert-action__wrapper"]//button[@action-type=\'ACCEPT\']')
     USERNAME_TEXTBOX_OPTION_1 = (By.ID, "session_key")
@@ -19,12 +20,13 @@ class LogInPage:
     LINK_TO_SIGNIN_PAGE = (By.CLASS_NAME, "authwall-join-form__form-toggle--bottom")
 
     def __init__(self, browser, username, password):
-        self.browser = browser
+        super().__init__(browser)
         self.username = username
         self.password = password
 
     def load(self):
-        self.browser.maximize_window()
+        # Set browser to full screen size and set self.width and self.height Page class variables
+        self.set_browser_to_max_screen_size()
         print("\nLoad URL")
         self.browser.get(self.URL)
         return self
@@ -65,6 +67,6 @@ class LogInPage:
         print("Sign in")
         sign_in_button = self.browser.find_element(*self.SIGNIN_BUTTON)
         sign_in_button.click()
-        return HomePage(self.browser)
+        return HomePage(self.browser, self.browser_width, self.browser_height)
 
 

@@ -46,6 +46,7 @@ def browser(config_browser, config_wait_time):
     yield driver
     driver.quit()
 
+
 @pytest.fixture
 def browser_second(config_browser, config_wait_time):
     # Initialize driver
@@ -88,6 +89,7 @@ def user_url(config):
 
 # TODO: Create the schema with using the dot to access the user details (GPT)
 
+
 @pytest.fixture
 def username_user_2(config):
     return config['user_2']['username']
@@ -113,16 +115,24 @@ def user_2_url(config):
     return config['user_2']['url']
 
 
-@pytest.fixture
-def home_page(browser):
-    return HomePage(browser)
+# @pytest.fixture
+# def home_page(browser):
+#     return HomePage(browser)
+#
+#
+# # Accept cookies and sign in before every test
+# # Return: home_page
+# @pytest.fixture(autouse=True)
+# def log_in_and_return_home_page(browser, username, password):
+#     login_page = LogInPage(browser, username, password)
+#     home_page = login_page.load(). \
+#         accept_cookies(). \
+#         login()
 
-
-# Accept cookies and sign in before every test
-# Return: home_page
 @pytest.fixture(autouse=True)
-def log_in_and_return_home_page(browser, username, password):
+def home_page(browser, username, password):
     login_page = LogInPage(browser, username, password)
-    home_page = login_page.load(). \
-        accept_cookies(). \
+    home_page = login_page.load().\
+        accept_cookies().\
         login()
+    return home_page

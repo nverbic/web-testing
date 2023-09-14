@@ -28,10 +28,12 @@ def test_send_message_to_connection_from_connections_panel(home_page, browser, f
     # (or that is not efficient)?
 
     # Use common methods from Page class to set the size and the position of the browsers (windows)
-    home_page.set_browser_width_to_half_of_the_screen()
-    home_page.set_browser_position_to_the_left()
-    home_page_second_user.set_browser_width_to_half_of_the_screen()
-    home_page_second_user.set_browser_position_to_the_right()
+    home_page.\
+        set_browser_width_to_half_of_the_screen().\
+        set_browser_position_to_the_left()
+    home_page_second_user.\
+        set_browser_width_to_half_of_the_screen().\
+        set_browser_position_to_the_right()
 
     # Click on My Network link and then on the Connections link and send the message to the first connection
     home_page.click_my_network_link(). \

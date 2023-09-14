@@ -10,13 +10,17 @@ class Page:
         self.browser.maximize_window()
         self.browser_width = self.browser.get_window_size().get("width")
         self.browser_height = self.browser.get_window_size().get("height")
+        return self
 
     def set_browser_width_to_half_of_the_screen(self):
         self.browser.set_window_size(self.browser_width / 2, self.browser_height)
+        return self
 
     def set_browser_position_to_the_left(self):
         self.browser.set_window_position(0, 0)
+        return self
 
     def set_browser_position_to_the_right(self):
         self.browser.set_window_position(self.browser_width / 2, 0)
+        return self
 

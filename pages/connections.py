@@ -20,8 +20,12 @@ class Connections:
         self.browser = browser
 
     def get_empty_connections_popup_text(self):
-        connections_info = self.browser.find_element(*self.EMPTY_CONNECTIONS_POPUP)
-        return connections_info.text
+        try:
+            connections_info = self.browser.find_element(*self.EMPTY_CONNECTIONS_POPUP)
+            return connections_info.text
+        except Exception as e:
+            return f"Cannot find empty connections popup text. " \
+                   f" {e}"
 
     def get_existing_connections_number(self):
         pass

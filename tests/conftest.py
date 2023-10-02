@@ -63,75 +63,11 @@ def browser_second(config_browser, config_wait_time):
     driver.quit()
 
 
-@pytest.fixture
-def username(config):
-    return config['user_1']['username']
-
-
-@pytest.fixture
-def password(config):
-    return config['user_1']['password']
-
-
-@pytest.fixture
-def first_name(config):
-    return config['user_1']['first_name']
-
-
-@pytest.fixture
-def last_name(config):
-    return config['user_1']['last_name']
-
-
-@pytest.fixture
-def user_url(config):
-    return config['user_1']['url']
-
-# TODO: Create the schema with using the dot to access the user details (GPT)
-
-
-@pytest.fixture
-def username_user_2(config):
-    return config['user_2']['username']
-
-
-@pytest.fixture
-def password_user_2(config):
-    return config['user_2']['password']
-
-
-@pytest.fixture
-def first_name_user_2(config):
-    return config['user_2']['first_name']
-
-
-@pytest.fixture
-def last_name_user_2(config):
-    return config['user_2']['last_name']
-
-
-@pytest.fixture
-def user_2_url(config):
-    return config['user_2']['url']
-
-
-# @pytest.fixture
-# def home_page(browser):
-#     return HomePage(browser)
-#
-#
-# # Accept cookies and sign in before every test
-# # Return: home_page
-# @pytest.fixture(autouse=True)
-# def log_in_and_return_home_page(browser, username, password):
-#     login_page = LogInPage(browser, username, password)
-#     home_page = login_page.load(). \
-#         accept_cookies(). \
-#         login()
-
 @pytest.fixture(autouse=True)
-def home_page(browser, username, password):
-    login_page = LogInPage(browser, username, password)
+# def home_page(browser, username, password):
+def home_page(browser, config):
+    users = config['users']
+    login_page = LogInPage(browser, users[0]['username'], users[0]['password'])
     home_page = login_page.load().\
         accept_cookies().\
         login()

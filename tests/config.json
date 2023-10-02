@@ -3,20 +3,24 @@
     "browser": "chrome",
     "wait_time": 10
    },
-  "user_1": {
-    "username": "",
-    "password": "",
-    "first_name": "",
-    "last_name": "",
-    "url": ""
-  },
-  "user_2": {
-    "username": "",
-    "password": "",
-    "first_name": "",
-    "last_name": "",
-    "url": ""
-  }
+  "users": [
+    {
+      "id": 1,
+      "username": "",
+      "password": "",
+      "first_name": "",
+      "last_name": "",
+      "url": ""
+    },
+    {
+      "id": 2,
+      "username": "",
+      "password": "",
+      "first_name": "",
+      "last_name": "",
+      "url": ""
+    }
+  ]
 }
 
 

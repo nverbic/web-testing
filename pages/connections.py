@@ -46,6 +46,7 @@ class Connections:
             return None
 
     def send_message_to_connection(self, message_text, connection_url=None):
+        # TODO: Check why connection elem is not used below (regression?)
         connection = self.get_connection_from_connections_panel(connection_url)
         message_button = WebDriverWait(self.browser, 10).\
             until(expected_conditions.element_to_be_clickable(self.MESSAGE_BUTTON))

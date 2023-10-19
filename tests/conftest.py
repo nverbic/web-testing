@@ -41,7 +41,7 @@ def browser(config_browser, config_wait_time):
     elif config_browser == 'edge':
         driver = Edge()
 
-    #  Config_browser fixture throws and exception in case browser is not selected
+    #  Config_browser fixture throws an exception in case browser is not selected
     driver.implicitly_wait(config_wait_time)
     yield driver
     driver.quit()

@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class Skills:
     SKILLS_GROUP = (By.XPATH, "//main//ul[@class='pvs-list ']")
-    SKILLS_LIST = (By.TAG_NAME, "li")
+    SKILLS_LIST = (By.XPATH, "./li")
     SKILLS_DROPDOWN_MENU = (By.ID, "overflow-more")
     OPEN_REORDER_SKILLS_DIALOG_LINK = (By.XPATH, '//div[contains(@class, "artdeco-dropdown__content-inner")]//a')
     REORDER_SKILLS_DIALOG_LIST = (By.XPATH, '//div[contains(@class, "artdeco-modal__content")]//ul//li')
@@ -20,7 +20,7 @@ class Skills:
     def get_num_of_skills(self):
         # Create list
         skills = WebDriverWait(self.browser, 10).\
-            until(expected_conditions.visibility_of_element_located(self.SKILLS_GROUP))
+             until(expected_conditions.visibility_of_element_located(self.SKILLS_GROUP))
         skills_list = skills.find_elements(*self.SKILLS_LIST)
         skills_num = len(skills_list)
         return skills_num

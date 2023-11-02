@@ -78,7 +78,7 @@ class ManageMyNetworkPanel(MyNetwork):
         manage_my_network_list = self.get_manage_my_network_list()
         for element in manage_my_network_list:
             # Element text can change depending on the number of connections.
-            # Check if the desired text is contained in the text of the element rather then comparing strings with the equality op.
+            # Check if the desired text is contained in the text of the element rather than comparing strings with the equality op.
             if element.text.find(element_text) != -1:
                 print(f"Get {element_text} link element from \"Manage my network\" panel.")
                 return element

@@ -8,9 +8,10 @@ from datetime import datetime
 # Pytest parameter 'user_2_url' is to run test for the specified connection
 @pytest.mark.parametrize('connection_url',
                          [pytest.param(None), 'user_2_url'])
-def test_send_message_to_connection_from_connections_panel(home_page, browser, browser_second, config, connection_url):
-    user_1 = config['users'][0]
-    user_2 = config['users'][1]
+def test_send_message_to_connection_from_connections_panel(home_page, browser, browser_second, config_data,
+                                                           connection_url):
+    user_1 = config_data['users'][0]
+    user_2 = config_data['users'][1]
 
     if connection_url is not None:
         connection_url = user_2['url']

@@ -18,5 +18,6 @@ class Profile:
                 expected_conditions.element_to_be_clickable(self.EDIT_SKILLS_LINK))
             skills.click()
         except TimeoutException as e:
-            print(f"We need to add a precondition to have min of 3 skills added.\n{e}")
+            print(f"Skills section is missing on the the user's profile page. Add at least three skills.\n{e}")
+            return None
         return Skills(self.browser)

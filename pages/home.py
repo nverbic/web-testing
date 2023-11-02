@@ -23,7 +23,7 @@ class HomePage(Page):
         return len(personal_info.text)
 
     def click_home_page_welcome_panel_text(self):
-        personal_info = WebDriverWait(self.browser, 15).\
+        personal_info = WebDriverWait(self.browser, 20).\
             until(expected_conditions.element_to_be_clickable(self.WELCOME_PANEL_MY_PROFILE_LINK))
         personal_info.click()
         return Profile(self.browser)

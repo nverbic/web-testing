@@ -1,14 +1,20 @@
 import pytest
+from pages.skills import Skills
 
 
 # home_page: Log in and return home_page before every test
-def test_reorder_skills_by_dragging(browser, home_page):
+# Precondition: Minimum of 3 skills added on the user's profile
+# TODO: Instead of marking the test, use annotation before_all
+@pytest.mark.min_num_of_skills(3)
+def test_reorder_skills_by_dragging(browser):
     # TODO: Add source and target positions as function params?
     source_elem_pos = 2
     target_elem_pos = 0
-    result_tuple = home_page. \
-        click_home_page_welcome_panel_text(). \
-        edit_skills(). \
+
+    # Skills page is loaded in the number_of_skills fixture, while checking for the precondition
+    skills = Skills(browser)
+
+    result_tuple = skills. \
         open_skills_dropdown_menu(). \
         reorder_skills_by_dragging(source_elem_pos, target_elem_pos)
 

@@ -11,7 +11,7 @@ def test_reorder_skills_by_dragging(browser):
     source_elem_pos = 2
     target_elem_pos = 0
 
-    # Skills page is loaded in the number_of_skills fixture, while checking for the precondition
+    # Skills page is loaded in the precondition_skills_num fixture, while checking for the precondition
     skills = Skills(browser)
 
     result_tuple = skills. \

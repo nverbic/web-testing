@@ -36,11 +36,11 @@ class Skills:
         add = WebDriverWait(self.browser, 10).until(
             expected_conditions.element_to_be_clickable(self.ADD_SKILLS_LINK))
         add.click()
+        return self
 
     # Add new skill from the box of the suggested skills by selecting the first skill from the list.
     # skills_num = the number of skills to be added
     def add_skills(self, skills_num):
-        self.click_add_skills()
         for i in range(skills_num):
             skill = WebDriverWait(self.browser, 20).until(
                 expected_conditions.element_to_be_clickable(self.SKILL_FROM_SUGGESTED_LIST_BUTTON))
@@ -59,8 +59,6 @@ class Skills:
         close_button = WebDriverWait(self.browser, 20).until(
             expected_conditions.element_to_be_clickable(self.CLOSE_ADD_SKILLS))
         close_button.click()
-
-        return Skills(self.browser)
 
     # On the Skills' page click on the button (three dots) to open the dropdown menu.
     def open_skills_dropdown_menu(self):
@@ -101,7 +99,6 @@ class Skills:
             return False, source_element.text
 
     # Get list of skills from the modal dialog for reordering of the skills
-    # TODO: Get list from the main skill's page
     def get_list_of_skills_from_reorder_dialog(self):
         print("Get list of skills")
         # Create list

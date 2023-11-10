@@ -74,7 +74,9 @@ def home_page(browser, config_data):
 
 
 # Implement a fixture that inspects marks into the tests:
-# - check if there are enough skills added to the user's profile. Add skills if there are less than 3 skills.
+# min_num_of_skills:
+#   Check if there are enough skills added to the user's profile.
+#   Add skills if there are less than 3 skills.
 @pytest.fixture(autouse=True)
 def precondition_skills_num(request, browser, home_page):
     min_num_of_skills = request.node.get_closest_marker('min_num_of_skills')
@@ -83,13 +85,10 @@ def precondition_skills_num(request, browser, home_page):
             click_home_page_welcome_panel_text().\
             edit_skills()
 
-        if skills_page is None:
-            skills_num = 0
-        else:
-            skills_num = skills_page.get_num_of_skills()
+        skills_num = skills_page.get_num_of_skills()
 
         if skills_num < min_num_of_skills.args[0]:
-            skills_page.add_skills(min_num_of_skills.args[0] - skills_num)
+            skills_page.click_add_skills().add_skills(min_num_of_skills.args[0] - skills_num)
 
         return Skills(browser)
 

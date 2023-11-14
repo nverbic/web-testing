@@ -2,7 +2,6 @@ import pytest
 import json
 from selenium.webdriver import Chrome, Firefox, Edge
 from pages.log_in import LogInPage
-from pages.skills import Skills
 
 CONFIG_PATH = 'config.json'
 DEFAULT_WAIT_TIME = 10
@@ -73,28 +72,3 @@ def home_page(browser, config_data):
     return home_page
 
 
-# Implement a fixture that inspects marks into the tests:
-# min_num_of_skills:
-#   Check if there are enough skills added to the user's profile.
-#   Add skills if there are less than 3 skills.
-@pytest.fixture(autouse=True)
-def precondition_skills_num(request, browser, home_page):
-    min_num_of_skills = request.node.get_closest_marker('min_num_of_skills')
-    if min_num_of_skills:
-        skills_page = home_page. \
-            click_home_page_welcome_panel_text().\
-            edit_skills()
-
-        skills_num = skills_page.get_num_of_skills()
-
-        if skills_num < min_num_of_skills.args[0]:
-            skills_page.click_add_skills().add_skills(min_num_of_skills.args[0] - skills_num)
-
-        return Skills(browser)
-
-
-def pytest_configure(config):
-    config.addinivalue_line(
-        "markers", "precondition_skills_num(browser, home_page): "
-                   "skip test if not enough skills added to the user's profile",
-    )

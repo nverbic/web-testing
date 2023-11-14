@@ -1,11 +1,26 @@
 import pytest
 from pages.skills import Skills
 
+MIN_NUMBER_SKILLS = 3
+
+
+# Setup actions needed before test
+@pytest.fixture(autouse=True, scope='function')
+def preconditions(browser, home_page):
+    skills_page = home_page. \
+        click_home_page_welcome_panel_text(). \
+        edit_skills()
+
+    skills_num = skills_page.get_num_of_skills()
+
+    if skills_num < MIN_NUMBER_SKILLS:
+        skills_page.click_add_skills().add_skills(MIN_NUMBER_SKILLS - skills_num)
+
+    return Skills(browser)
+
 
 # home_page: Log in and return home_page before every test
 # Precondition: Minimum of 3 skills added on the user's profile
-# TODO: Instead of marking the test, use annotation before_all
-@pytest.mark.min_num_of_skills(3)
 def test_reorder_skills_by_dragging(browser):
     # TODO: Add source and target positions as function params?
     source_elem_pos = 2
